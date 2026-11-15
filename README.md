@@ -126,77 +126,11 @@ compose.yaml      alternativa PostgreSQL con Docker
 Se aprobaron **22 pruebas** con PostgreSQL real. La salida se conserva en
 `docs/evidencias/pruebas_automatizadas.txt`. Además pasaron nueve pruebas JavaScript
 que cubren video continuo, superposición, caducidad, cierre y concurrencia.
-Se reproducen
-con Node.js 20 o posterior mediante `node --test tests/frontend.test.cjs`.
-Se verificaron en navegador la
-imagen, el video local, la alerta de aforo, el historial, la exportación y
-la adaptación a pantalla pequeña. Se guardan evidencias y una demostración
-de pantalla editada en `docs/`. La cámara física y un laboratorio ocupado
-requieren validación de campo; no se presentan como comprobados.
 
-La mejora de fluidez se comprobó con `docs/video_fluidez_30fps.mp4`, un archivo
-controlado con un indicador en movimiento. Las observaciones DOM y las capturas
-están en `docs/evidencias/verificacion_video_continuo.json` y `fluidez-*.jpg`.
-La demostración original conserva el comportamiento previo a esta mejora.
-Después de actualizar el código, reinicia Django y recarga con Ctrl+F5 para
-evitar una plantilla o un archivo JavaScript antiguo en caché.
-
-Se corrigió el error `Cannot read properties of null (reading replaceChildren)`
-que aparecía al combinar la plantilla anterior con el JavaScript del video
-continuo. La aplicación crea la capa SVG si falta y libera los dispositivos
-antes de actualizar el panel al cerrar. Se verificó con la plantilla anterior
-real y se añadieron dos pruebas de regresión. Para cargar el arreglo usa Ctrl+F5.
-
-Las cinco variantes controladas parten de una sola imagen y no constituyen
-un conjunto de evaluación independiente. Consulta resultados y límites en
-`docs/informe.md` y `docs/evidencias/evaluacion_detector.json`.
 
 ## Datos y ejecución
 
 El servidor escucha solo en `127.0.0.1`. La configuración `DEBUG=1` es para
 desarrollo local. No se guardan fotogramas de los usuarios: PostgreSQL conserva
-sesiones y lecturas numéricas. El ejemplo público y las evidencias de prueba
-sí están incluidos en el proyecto. El historial se asocia a una cookie de
-sesión; otro navegador o una cookie eliminada no mostrará esos registros.
-Esto no sustituye un sistema de usuarios para un despliegue multiusuario.
+sesiones y lecturas numéricas. 
 
-Para detener Django usa Ctrl+C en la terminal donde se ejecutó. Para detener
-la base Docker usa `docker compose stop db`. En este equipo, el PostgreSQL
-portátil está en `../../work/postgres/pgsql` y sus datos en `../../work/pgdata`;
-puede detenerse con `pg_ctl.exe -D ../../work/pgdata stop -m fast` usando su
-ruta completa. No borres la carpeta de datos si deseas conservar el historial.
-
-## Entrega y fuentes
-
-### Requisitos del repositorio de GitHub
-
-La entrega requiere compartir el enlace real al repositorio de GitHub.
-Repositorio de entrega: https://github.com/Stranix12/Proyecto-conteo-de-personas
-
-En la raíz del repositorio deben estar `README.md`, `requirements.txt`,
-`manage.py` y las carpetas del código. Publica el contenido de
-`conteo_personas`, no el ZIP como único archivo.
-
-El entorno virtual se crea en cada equipo con las instrucciones de instalación
-de este README. No se suben `.venv/`, `venv/`, `.env`, cachés ni datos de
-PostgreSQL. Las exclusiones están definidas en `.gitignore`; el ZIP de entrega
-también excluye el entorno virtual y el archivo privado `.env`.
-
-Desde Visual Studio Code, abre la carpeta del proyecto, entra en Control de
-código fuente e inicializa el repositorio. Revisa los archivos incluidos antes
-del primer commit y utiliza **Publish to GitHub** con tu cuenta. Una vez
-publicado, copia el enlace real del repositorio e incorpóralo a la entrega.
-Si el repositorio es privado, concede acceso al docente.
-
-El informe en PDF está en la carpeta superior de entregables. La publicación
-en GitHub corresponde a https://github.com/Stranix12/Proyecto-conteo-de-personas. El video demostrativo se entrega localmente;
-su enlace de Drive debe incorporarse al informe cuando esté publicado.
-No se inventan enlaces externos ni evidencia de participación grupal.
-
-Consulta `THIRD_PARTY_NOTICES.md` para atribuciones y licencias. Documentación:
-
-* https://docs.djangoproject.com/en/5.2/
-* https://docs.djangoproject.com/en/5.2/ref/databases/#postgresql-notes
-* https://github.com/opencv/opencv_zoo/tree/main/models/object_detection_yolox
-* https://docs.opencv.org/4.x/d6/d0f/group__dnn.html
-* https://www.postgresql.org/docs/17/
