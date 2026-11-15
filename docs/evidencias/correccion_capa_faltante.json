@@ -1,0 +1,9 @@
+{
+  "initial_overlay_count": 0,
+  "overlay_count_after_start": 1,
+  "person_rectangles": 2,
+  "error_alert_hidden": true,
+  "start_enabled_after_stop": true,
+  "video_hidden_after_stop": true,
+  "verification": "Navegador con plantilla anterior real; video de prueba local; no se accedió a la cámara física."
+}

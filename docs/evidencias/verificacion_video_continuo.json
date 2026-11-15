@@ -1,0 +1,32 @@
+{
+  "input_fps": 30,
+  "input_duration_seconds": 20,
+  "observations": [
+    {
+      "hidden": false,
+      "paused": false,
+      "time": 0.2696
+    },
+    {
+      "hidden": false,
+      "paused": false,
+      "time": 0.9352
+    },
+    {
+      "hidden": false,
+      "paused": false,
+      "time": 1.6233
+    },
+    {
+      "hidden": false,
+      "paused": false,
+      "time": 2.3055
+    },
+    {
+      "hidden": false,
+      "paused": false,
+      "time": 3.0539
+    }
+  ],
+  "measurement_note": "El tiempo de reproducción avanza y el elemento de video permanece visible mientras se procesan muestras. No se midieron los FPS renderizados de la cámara física."
+}

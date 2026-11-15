@@ -1,0 +1,8 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {"label": "LabCount iniciar", "type": "process", "command": "${workspaceFolder}/.venv/Scripts/python.exe", "args": ["scripts/run_local.py"], "problemMatcher": [], "isBackground": true},
+    {"label": "LabCount pruebas", "type": "process", "command": "${workspaceFolder}/.venv/Scripts/python.exe", "args": ["manage.py", "test", "counter", "--verbosity", "2"], "problemMatcher": [], "group": {"kind": "test", "isDefault": true}},
+    {"label": "LabCount migrar", "type": "process", "command": "${workspaceFolder}/.venv/Scripts/python.exe", "args": ["manage.py", "migrate"], "problemMatcher": []}
+  ]
+}

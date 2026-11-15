@@ -1,0 +1,24 @@
+Prueba ejecutada con el ejecutable Node.js del entorno de trabajo.
+Comando reproducible: node --test tests/frontend.test.cjs
+
+Resultado observado
+detener durante la creación cierra la sesión que llega tarde
+el video sigue visible mientras se espera y se recibe la detección
+una detección vacía elimina recuadros anteriores sin ocultar el video
+los recuadros caducan después de 1200 ms sin detener el video
+detener conserva la última detección como imagen y libera el video
+no se envían dos inferencias simultáneas y se elimina el temporizador al detener
+las imágenes estáticas siguen mostrando el JPEG anotado
+una plantilla anterior sin SVG crea la capa una sola vez y permite detectar
+cerrar una plantilla sin SVG libera la cámara y restaura los controles
+tests 9
+pass 9
+fail 0
+cancelled 0
+skipped 0
+todo 0
+
+La prueba evalúa app.js con dobles de DOM y de fetch. Retiene la respuesta
+de creación, solicita detener y después entrega el identificador de sesión.
+Comprueba que se envía el cierre al identificador recibido y que no se
+procesan imágenes después de detener.
