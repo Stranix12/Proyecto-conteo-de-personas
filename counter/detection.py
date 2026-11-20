@@ -23,7 +23,7 @@ STRIDES = np.concatenate(_strides).astype(np.float32)
 def detector():
     if not MODEL.is_file():
         raise RuntimeError('Falta el modelo YOLOX. Ejecuta python scripts/download_model.py.')
-    # La red mantiene buffers internos: una instancia por hilo.
+
     if not hasattr(_local, 'net'):
         _local.net = cv2.dnn.readNetFromONNX(str(MODEL))
         _local.net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
@@ -54,7 +54,7 @@ def analyze(raw, threshold=0.35):
         image = cv2.resize(image, (round(w * scale), round(h * scale)))
     ih, iw = image.shape[:2]
     ratio = min(640 / iw, 640 / ih)
-    # Letterbox: mantiene proporciones y rellena los bordes inferior y derecho.
+
     padded = np.full((640, 640, 3), 114, dtype=np.float32)
     resized = cv2.resize(
         cv2.cvtColor(image, cv2.COLOR_BGR2RGB),

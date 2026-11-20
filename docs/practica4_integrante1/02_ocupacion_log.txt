@@ -1,0 +1,16 @@
+Practica 4 - Integrante 1 - 20/11/2026
+Comando: --test --test-reporter=spec tests/ocupacion_integrante1.test.cjs
+
+✔ ocupacion 0/24: 0% (2.0078ms)
+✔ ocupacion 2/24: 8% (1.1853ms)
+✔ ocupacion 12/24: 50% (0.6488ms)
+✔ ocupacion 24/24: 100% (0.6546ms)
+✔ ocupacion 30/24: 125% (0.6392ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 64.7627

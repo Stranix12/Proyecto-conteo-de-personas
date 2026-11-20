@@ -1,0 +1,19 @@
+Practica 4 - Integrante 1 - 20/11/2026
+Comando: manage.py test counter.test_integrante1 --verbosity 2
+
+Found 8 test(s).
+Skipping setup of unused database(s): default.
+System check identified no issues (0 silenced).
+test_aforo_acepta_limites (counter.test_integrante1.Integrante1Tests.test_aforo_acepta_limites) ... ok
+test_aforo_rechaza_valores_invalidos (counter.test_integrante1.Integrante1Tests.test_aforo_rechaza_valores_invalidos) ... ok
+test_cuenta_solo_personas (counter.test_integrante1.Integrante1Tests.test_cuenta_solo_personas) ... ok
+test_imagen_invalida (counter.test_integrante1.Integrante1Tests.test_imagen_invalida) ... ok
+test_nms_elimina_duplicados (counter.test_integrante1.Integrante1Tests.test_nms_elimina_duplicados) ... ok
+test_nms_vacio (counter.test_integrante1.Integrante1Tests.test_nms_vacio) ... ok
+test_subir_umbral_reduce_conteo (counter.test_integrante1.Integrante1Tests.test_subir_umbral_reduce_conteo) ... ok
+test_umbral_filtra_puntuaciones (counter.test_integrante1.Integrante1Tests.test_umbral_filtra_puntuaciones) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.037s
+
+OK

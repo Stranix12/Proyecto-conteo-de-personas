@@ -1,7 +1,7 @@
 @echo off
 cd /d "%~dp0"
 if not exist ".venv\Scripts\python.exe" (
-  echo Crea primero el entorno: python -m venv .venv
+  echo Primero ejecuta Preparar.cmd. Consulta los requisitos en README.md.
   pause
   exit /b 1
 )

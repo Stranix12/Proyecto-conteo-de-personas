@@ -5,68 +5,84 @@ Aplicación web para contar personas visibles en imágenes o video mediante
 Construcción de Software. El desarrollo está organizado para abrirse en
 **Visual Studio Code**.
 
-## Empezar en este computador
+## Requisitos para ejecutar en otro computador
 
-1. Abre esta carpeta en Visual Studio Code con **File > Open Folder**.
-2. Abre `docs/informe.md` para consultar el proceso completo y los cambios.
-3. Ejecuta `Iniciar.cmd` desde el Explorador de Windows. Usa el entorno `.venv`
-   ya configurado e inicia el PostgreSQL portátil de esta carpeta de trabajo.
-4. Entra a **http://127.0.0.1:8000/** y pulsa **Probar ejemplo**.
-5. Para trabajar desde VS Code, selecciona el intérprete
-   `.venv\Scripts\python.exe`. En **Terminal > Run Task** están disponibles
-   `LabCount iniciar`, `LabCount pruebas` y `LabCount migrar`.
-6. Con las extensiones Python y Python Debugger instaladas, F5 permite usar
-   la configuración `LabCount Django`. Inicia antes PostgreSQL. Si ya hay un
-   servidor en el puerto 8000, detenlo antes de lanzar otra instancia.
+- Windows 10/11 de 64 bits y Python 3.11 con el lanzador `py` y pip.
+- PostgreSQL 17 instalado **o** Docker Desktop en ejecución con Compose.
+- Internet durante la preparación para descargar dependencias y, si falta, el modelo.
+- Un navegador actualizado. La cámara es opcional; también se admiten imágenes y videos.
+- Visual Studio Code es opcional para iniciar. Para desarrollar, instala las extensiones Python y Python Debugger y selecciona `.venv\Scripts\python.exe` como intérprete.
+- Node.js 20 o posterior solo para las pruebas JavaScript. No hace falta para ejecutar Django.
 
-Si VS Code muestra modo restringido, el código puede inspeccionarse sin
-alterar esa configuración. La ejecución de tareas/extensiones depende de
-la configuración de confianza que el propietario del equipo decida usar.
+Las bibliotecas están fijadas en `requirements.txt`. La inferencia funciona en CPU.
+El repositorio no incluye entorno virtual, credenciales ni datos de PostgreSQL.
 
-## Instalar en otro computador con Windows
+## Primera instalación
 
-Requisitos: Python 3.11, PostgreSQL 17 o Docker Desktop con Compose, VS Code
-y navegador con soporte de cámara y video H.264. El proyecto no necesita GPU.
-Los siguientes comandos se ejecutan en la terminal desde la raíz del proyecto:
+1. Descarga **Code > Download ZIP**, extráelo y abre la carpeta que contiene `manage.py`. No ejecutes los archivos dentro del ZIP.
+2. Ejecuta **Preparar.cmd**. Crea `.venv`, instala las bibliotecas, genera `.env` con claves locales si no existe y verifica o descarga YOLOX. No sobrescribe un `.env` existente. Si falla, muestra el error; corrígelo y vuelve a ejecutar la preparación.
+3. Configura una de las dos alternativas de base de datos siguientes.
+4. Ejecuta **Iniciar.cmd** y entra a **http://127.0.0.1:8000/**. El inicio comprueba PostgreSQL, aplica migraciones y verifica el modelo antes de levantar Django.
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-Copy-Item .env.example .env
-```
+### Alternativa A con Docker
 
-Edita `.env` en VS Code. Define una contraseña propia para `DB_PASSWORD` y una
-clave aleatoria privada para `SECRET_KEY`. No publiques este archivo. El
-puerto de conexión configurado es **55432**.
-
-Opción A, servidor instalado: crea el usuario y la base con pgAdmin o psql
-y usa sus credenciales en `.env`. Para las pruebas de Django, el usuario
-necesita permiso `CREATEDB` para crear `test_conteo_personas`.
-
-```sql
-CREATE ROLE conteo LOGIN PASSWORD 'tu_clave_local' CREATEDB;
-CREATE DATABASE conteo_personas OWNER conteo;
-```
-
-Opción B, Docker, con las mismas variables de `.env`:
+Con Docker Desktop iniciado, abre una terminal en la carpeta del proyecto:
 
 ```powershell
 docker compose up -d db
 ```
 
-Después de que PostgreSQL esté disponible:
+Espera a que la base esté lista y ejecuta `Iniciar.cmd`. Mantén los valores
+predeterminados de `.env` para esta alternativa: host `127.0.0.1`, puerto
+`55432`, usuario `conteo` y base `conteo_personas`. Compose utiliza la contraseña
+generada por `Preparar.cmd`. Si ya existe un volumen de datos, cambiar la
+contraseña en `.env` no cambia la contraseña de ese volumen.
 
-```powershell
-.\.venv\Scripts\python.exe scripts\download_model.py
-.\.venv\Scripts\python.exe manage.py migrate
-.\.venv\Scripts\python.exe manage.py check
-.\.venv\Scripts\python.exe manage.py test counter --verbosity 2
-.\.venv\Scripts\python.exe manage.py runserver 127.0.0.1:8000 --noreload
+### Alternativa B con PostgreSQL instalado
+
+Crea una base y un usuario desde pgAdmin o psql con una cuenta administradora:
+
+```sql
+CREATE ROLE conteo LOGIN PASSWORD 'reemplaza_con_tu_clave';
+CREATE DATABASE conteo_personas OWNER conteo;
 ```
 
-`scripts/download_model.py` verifica SHA256 y solo descarga si el modelo falta
-o no coincide. El ZIP de entrega ya contiene el ONNX. El proyecto no incluye
-entorno virtual, credenciales ni datos de PostgreSQL en el paquete fuente.
+Edita `.env`: pon esa contraseña en `DB_PASSWORD` y el puerto real de PostgreSQL
+en `DB_PORT` (habitualmente `5432` en una instalación estándar). Conserva
+`DB_NAME=conteo_personas`, `DB_USER=conteo` y `DB_HOST=127.0.0.1`.
+Inicia el servicio de PostgreSQL antes de abrir `Iniciar.cmd`.
+Para las pruebas de integración que crean una base temporal, un administrador
+debe conceder `ALTER ROLE conteo CREATEDB;` en el entorno de desarrollo.
+
+## Uso diario y problemas de inicio
+
+Una vez preparado, inicia PostgreSQL o Docker y abre **Iniciar.cmd**.
+No hace falta volver a instalar las bibliotecas cada vez. Cuando cambie
+`requirements.txt`, vuelve a ejecutar `Preparar.cmd`.
+En VS Code también puedes usar **Terminal > Run Task > LabCount iniciar**.
+
+- Si falta Python, instala la versión 3.11 con su lanzador `py`.
+- Si falta `.venv` o alguna biblioteca, ejecuta `Preparar.cmd`.
+- Si PostgreSQL no responde, revisa el servicio, el puerto y las credenciales de `.env`. El arranque usa un tiempo límite de conexión; no abras varias instancias mientras solucionas la conexión.
+- Si el puerto 8000 está ocupado, comprueba si LabCount ya está abierto y detén la instancia anterior si corresponde.
+- No necesitas activar `Activate.ps1` ni cambiar la política de PowerShell. Los comandos usan directamente el Python de `.venv`.
+- Detén Django con Ctrl+C. Para detener la base Docker usa `docker compose stop db`; no borres el volumen si quieres conservar el historial.
+
+La detección automática del PostgreSQL portátil es solo una compatibilidad con
+el equipo original. Los demás equipos pueden usar cualquiera de las dos
+alternativas anteriores sin tener esa carpeta.
+
+## Pruebas de la práctica 4
+
+```powershell
+.\.venv\Scripts\python.exe manage.py test counter.test_integrante1 --verbosity 2
+node --test tests/ocupacion_integrante1.test.cjs
+```
+
+Estas 13 pruebas verifican NMS, umbral, clase persona, aforo y ocupación con
+datos controlados; no necesitan una base de datos ni cámara. El código está
+en `counter/test_integrante1.py` y `tests/ocupacion_integrante1.test.cjs`.
+Los logs y capturas están en `docs/practica4_integrante1/`.
 
 ## Usar el sistema
 

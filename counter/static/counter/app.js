@@ -7,7 +7,6 @@ const DETECTION_INTERVAL_MS = 250, OVERLAY_MAX_AGE_MS = 1200;
 const canvas = $('canvas'), video = $('video');
 function detectionOverlay(){
   let overlay=$('overlay');
-  // Una plantilla ya cargada puede ser anterior a la capa SVG de esta versión.
   if(!overlay){
     overlay=document.createElementNS('http://www.w3.org/2000/svg','svg');
     overlay.setAttribute('id','overlay');
@@ -16,7 +15,6 @@ function detectionOverlay(){
     overlay.setAttribute('hidden','');
     video.parentElement.appendChild(overlay);
   }
-  // Estos estilos también permiten recuperar una página con el CSS anterior.
   Object.assign(overlay.style,{position:'absolute',inset:'0',width:'100%',height:'100%',pointerEvents:'none',zIndex:'2'});
   video.style.opacity='1';video.style.zIndex='1';$('frameLabel').style.zIndex='3';
   return overlay;
@@ -44,7 +42,6 @@ function drawDetections(boxes,width,height){
     label.textContent=`Persona ${Number(box.score).toFixed(2)}`;
     overlay.append(rect,label);
   }
-  // No se presentan recuadros antiguos como detecciones actuales si el servidor tarda.
   overlayTimer=setTimeout(()=>overlay.replaceChildren(),OVERLAY_MAX_AGE_MS);
 }
 function message(text, error=false) { $('status').textContent=text; $('alert').hidden=!error; $('alert').textContent=error ? text : ''; }
@@ -104,7 +101,6 @@ async function loop(){
 }
 function release(){
   clearTimeout(loopTimer);loopTimer=null;clearTimeout(overlayTimer);overlayTimer=null;
-  // Liberar primero los dispositivos, aunque la página no tenga la capa SVG.
   stream?.getTracks().forEach(t=>t.stop());stream=null;
   video.pause();video.srcObject=null;video.removeAttribute('src');video.load();
   if(fileURL)URL.revokeObjectURL(fileURL);fileURL=null;sampleImage=null;

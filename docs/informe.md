@@ -40,7 +40,7 @@ El conteo representa detecciones por imagen. No identifica individuos, no regist
 | Base PostgreSQL | Sesiones y lecturas relacionadas con clave foránea; migraciones incluidas |
 | Interfaz y pruebas | Panel responsive, errores, alertas, historial, CSV y 22 pruebas |
 | README y requirements | Incluidos en la raíz del proyecto y en el paquete fuente |
-| GitHub y video en Drive | Publicación pendiente; se entregan código y demostración local |
+| GitHub y video en Drive | Repositorio publicado; demostración disponible en docs/video_demostracion.mp4 |
 
 ### Arquitectura
 ```mermaid
@@ -255,7 +255,7 @@ Se comprobó el ejemplo, la carga de una imagen, un MP4 controlado, la alerta co
 | Ajuste de singular en aforo | La etiqueta mostraba una personas | Etiqueta de una persona corregida |
 | Entorno Visual Studio Code | Trabajar con el IDE indicado | Proyecto abierto, detector editado y tareas incluidas |
 
-La bitácora completa se conserva en docs/BITACORA.md. Describe cambios realizados, no una historia retrospectiva de commits. La publicación del repositorio está pendiente y no se presenta como realizada.
+La bitácora completa se conserva en docs/BITACORA.md. Describe cambios realizados, no una historia retrospectiva de commits. Repositorio: https://github.com/Stranix12/Proyecto-conteo-de-personas.
 
 ### Decisiones de calidad
 Se mantuvo PostgreSQL como base de desarrollo y pruebas. Se fijaron versiones de las dependencias comprobadas. Se incluyeron migraciones, licencias y suma SHA256 del modelo. La configuración local con credenciales y el entorno virtual quedan fuera del paquete fuente. La aplicación funciona en CPU y no envía imágenes a un servicio de inferencia externo.
@@ -316,7 +316,7 @@ La implementación conecta captura, inferencia OpenCV, persistencia y visualizac
 La demostración se construyó con capturas reales de la interfaz tomadas desde este computador y editadas para reducir esperas. No utiliza una grabación de teléfono. Muestra el conteo de ejemplo, la configuración de aforo, el procesamiento de video local, el cierre y el historial. No demuestra una cámara física funcionando ni reemplaza la participación de los integrantes en la práctica.
 
 ### Enlaces de publicación
-GitHub permanece pendiente de publicación. El video se entrega localmente; todavía no existe un enlace de Drive publicado. Cuando se publiquen, incorporar aquí los dos enlaces reales y comprobar el permiso de visualización. Estos campos no se sustituyen por URLs inventadas.
+Repositorio: https://github.com/Stranix12/Proyecto-conteo-de-personas. El video está disponible en docs/video_demostracion.mp4.
 
 ### Referencias técnicas y material reutilizado
 1. Universidad Estatal de Milagro. Guía de práctica 03 G003 S12 SOFTWARE2019 PRESENCIAL CONSTRUCCIÓN DE SOFTWARE A5. Documento proporcionado, 3 páginas, 10 de noviembre de 2026.
